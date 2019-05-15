@@ -2,6 +2,8 @@
 
 AWS Signature Version 4 is the process to add authentication information to AWS requests sent over HTTP. This connector allows you to build the signature to allow you to call an AWS service over HTTP. 
 
+An example project can be found [here](https://github.com/djuang1/aws-sig-v4-example-mule4)
+
 ### Date Format
 ```
 #[output application/json --- (now() >> "UTC") as DateTime  {format:"yyyyMMdd'T'HHmmss'Z'"}]
