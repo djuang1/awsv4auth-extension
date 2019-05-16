@@ -6,7 +6,7 @@ public class AWSV4AuthTest {
 
         AWSV4AuthOperations testOperation = new AWSV4AuthOperations();
 
-        System.out.println(testOperation.getAuthorizationString("    { \"first_name\": \"Bill\", \"last_name\": \"Smith\", \"test\": \"test\" }  ","20190425T123154Z","***","***","us-east-1","lambda", "lambda.us-east-1.amazonaws.com" ,"/2015-03-31/functions/helloAWS/invocations",""));
+        System.out.println(testOperation.getAuthorizationString("    { \"first_name\": \"Bill\" }  ","20190425T123154Z","ABC","123","us-east-1","lambda", "lambda.us-east-1.amazonaws.com" ,"/2015-03-31/functions/helloAWS/invocations",""));
 
     }
 }

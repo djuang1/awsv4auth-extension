@@ -1,0 +1,40 @@
+= AWS Signature Version 4 Connector Release Notes
+May 2019
+_MuleSoft Certified_
+
+The AWS Signature Version 4 connector provides the ability to generate a AWS Signature Version 4 to call an AWS service over HTTPS.
+
+== Version 1.0.1 - May 25, 2019
+This release is new.
+
+=== Version 1.0.1 - Compatibility
+This connector supports these software versions:
+
+[%header%autowidth.spread]
+|===
+|Software |Version
+|Anypoint Studio
+|7.3.4 and later
+|Mule
+|4.1.4 and later
+|JDK
+|1.8 and later
+|===
+
+=== Version 1.0.1 - Features
+* Provides the ability to generate the AWS Signature Version 4 to call an AWS service over HTTPS.
+
+=== Version 1.0.1 - Fixed in This Release
+* None
+
+=== Version 1.0.1 - Known Issues
+* None
+
+=== Version 1.0.1 - Required Libraries
+* None
+
+== See Also
+* https://www.mulesoft.com/legal/versioning-back-support-policy#anypoint-connectors[Anypoint Connectors Support Policy]
+* link:user-manual.adoc[AWS Signature Version 4 User Manual]
+* https://forums.mulesoft.com[MuleSoft Forum]
+* https://support.mulesoft.com[Contact MuleSoft Support]
