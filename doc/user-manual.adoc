@@ -9,6 +9,7 @@ This document assumes that you are familiar with Mule, Anypoint Connectors, Anyp
 
 == What's New in this Connector
 This is the first release of the connector.
+
 == To Connect in Design Center
 [List steps to specify a trigger and the connector] - Show screenshots for the trigger setup and for configuring the connector.
 

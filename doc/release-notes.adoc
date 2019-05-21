@@ -18,7 +18,7 @@ This connector supports these software versions:
 |Mule
 |4.1.4 and later
 |JDK
-|1.8 and later
+|1.8.0.191 and later
 |===
 
 === Version 1.0.1 - Features
