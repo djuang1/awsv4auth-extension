@@ -50,7 +50,7 @@ To build and run this demo project you need:
 <flow name="aws-sig-v4-example-mule4Flow" doc:id="1dd79553-1a8d-4586-b9ff-ab183adf848a" >
   <http:listener doc:name="/hello" doc:id="1c98da1c-1da8-4b4f-8394-1f061d01da24" config-ref="HTTP_Listener_config" path="/hello"/>
   <set-variable value="#[output application/json --- (now() &gt;&gt; &quot;UTC&quot;) as DateTime  {format:&quot;yyyyMMdd'T'HHmmss'Z'&quot;}]" doc:name="xAmzDate" doc:id="097fcc10-3934-49c3-bc5f-5263e27a9b6b" variableName="xAmzDate"/>
-  <awsv4auth:get-authorization-string doc:name="Get authorization string" doc:id="d0d15939-057f-4e61-9058-ec4d185f3224" accessKey="${aws.accesskey}" secretKey="${aws.secretkey}" regionName="${aws.region}" serviceName="${aws.service}" canonicalURL="/2015-03-31/functions/helloAWS/invocations" timeStamp="#[vars.xAmzDate]" target="authString" body="#[payload.^raw]" hostName="${aws.hostname}"/>
+  <awsv4auth:get-authorization-string doc:name="Get authorization string" doc:id="d0d15939-057f-4e61-9058-ec4d185f3224" accessKey="${aws.accesskey}" secretKey="${aws.secretkey}" regionName="${aws.region}" serviceName="${aws.service}" canonicalURL="/2015-03-31/functions/helloAWS/invocations" timeStamp="#[vars.xAmzDate]" target="authString" body="#[payload]" hostName="${aws.hostname}"/>
   <http:request method="POST" doc:name="Call AWS Lambda" doc:id="b2a2bee1-dfbb-4246-85e7-8907b432e15a" path="/2015-03-31/functions/helloAWS/invocations" config-ref="HTTP_Request_configuration" sendCorrelationId="NEVER">
     <http:headers ><![CDATA[#[output application/java
     ---

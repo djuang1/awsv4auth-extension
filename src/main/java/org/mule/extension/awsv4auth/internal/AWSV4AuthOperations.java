@@ -1,10 +1,14 @@
 package org.mule.extension.awsv4auth.internal;
 
 import static org.mule.runtime.extension.api.annotation.param.MediaType.ANY;
+import static org.mule.runtime.extension.api.annotation.param.Optional.PAYLOAD;
 
+import org.apache.commons.io.IOUtils;
 import org.mule.runtime.extension.api.annotation.param.MediaType;
 import org.mule.runtime.extension.api.annotation.param.Optional;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
@@ -27,14 +31,20 @@ public class AWSV4AuthOperations {
   String strSignedHeader;
 
   @MediaType(value = ANY, strict = false)
-  public String getAuthorizationString(String body, String timeStamp, String accessKey, String secretKey, String regionName, String serviceName, String hostName, String canonicalURL, @Optional String queryString) {
+  public String getAuthorizationString(@Optional(defaultValue = PAYLOAD) InputStream body, String timeStamp, String accessKey, String secretKey, String regionName, String serviceName, String hostName, String canonicalURL, @Optional String queryString) {
 
     String xAmzDate = timeStamp;
 
-    //System.out.println(currentDate + ":" + xAmzDate);
+    //System.out.println(IOUtils.toString(body));
 
     /* Task 1 - Create a Canonical Request */
-    String canonicalRequest = prepareCanonicalRequest(body, xAmzDate, regionName, serviceName, hostName, canonicalURL, queryString);
+    String canonicalRequest = null;
+    try {
+      canonicalRequest = prepareCanonicalRequest(IOUtils.toString(body), xAmzDate, regionName, serviceName, hostName, canonicalURL, queryString);
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+
     System.out.println(canonicalRequest);
 
     /* Task 2 - Create a String to Sign */

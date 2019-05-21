@@ -5,7 +5,8 @@
           http://www.mulesoft.org/schema/mule/awsv4auth http://www.mulesoft.org/schema/mule/awsv4auth/current/mule-awsv4auth.xsd">
 
     <flow name="getAuthorizationStringFlow">
-        <awsv4auth:get-authorization-string accessKey="ABC" secretKey="123" regionName="us-east-1" serviceName="lambda" canonicalURL="/2015-03-31/functions/helloAWS/invocations" timeStamp="20190425T123154Z" body="    { 'first_name': 'Bill' }  " hostName="lambda.us-east-1.amazonaws.com"/>
+        <set-payload value='#[output application/json --- {"first_name":"Bill"}]'/>
+        <awsv4auth:get-authorization-string accessKey="ABC" secretKey="123" regionName="us-east-1" serviceName="lambda" canonicalURL="/2015-03-31/functions/helloAWS/invocations" timeStamp="20190425T123154Z" body="#[payload]" hostName="lambda.us-east-1.amazonaws.com"/>
     </flow>
 
 </mule>
