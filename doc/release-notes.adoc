@@ -4,10 +4,10 @@ _MuleSoft Certified_
 
 The AWS Signature Version 4 connector provides the ability to generate a AWS Signature Version 4 to call an AWS service over HTTPS.
 
-== Version 1.0.1 - May 25, 2019
+== Version 1.0.5 - May 25, 2019
 This release is new.
 
-=== Version 1.0.1 - Compatibility
+=== Version 1.0.5 - Compatibility
 This connector supports these software versions:
 
 [%header%autowidth.spread]
@@ -21,16 +21,16 @@ This connector supports these software versions:
 |1.8.0.191 and later
 |===
 
-=== Version 1.0.1 - Features
+=== Version 1.0.5 - Features
 * Provides the ability to generate the AWS Signature Version 4 to call an AWS service over HTTPS.
 
-=== Version 1.0.1 - Fixed in This Release
+=== Version 1.0.5 - Fixed in This Release
 * None
 
-=== Version 1.0.1 - Known Issues
+=== Version 1.0.5 - Known Issues
 * None
 
-=== Version 1.0.1 - Required Libraries
+=== Version 1.0.5 - Required Libraries
 * None
 
 == See Also

@@ -1,5 +1,5 @@
 = AWS Signature Version 4 Connector
-:imagesdir: ./
+:imagesdir: ./images
 _CONNECTOR_SUPPORT_CATEGORY_
 
 The AWS Signature Version 4 connector provides the ability to generate a AWS Signature Version 4 to call an AWS service over HTTPS.
@@ -11,10 +11,45 @@ This document assumes that you are familiar with Mule, Anypoint Connectors, Anyp
 This is the first release of the connector.
 
 == To Connect in Design Center
-[List steps to specify a trigger and the connector] - Show screenshots for the trigger setup and for configuring the connector.
+* Before setting up the connector, you need to pass in the *X-Amz-Date* as a variable in a specific format (e.g. 20190521T160341Z). The following DataWeave script will generate this for you.
+
+[source,xml,linenums]
+#[output application/json --- (now() >> "UTC") as DateTime  {format:"yyyyMMdd'T'HHmmss'Z'"}]
+
+image::awsv4auth_fd_vars_xamzdate.png[X-Amz-Date Variable,500]
+
+* Next you can add in the AWS Signature Version 4 Connector.
+** *Body* - Keep the default value of the payload you expect to pass to the AWS service.
+** *Time Stamp* - Pass the *X-Amz-Date* variable that you created beforehand. (e.g. vars.xAmzDate)
+** *AWS Access Key* - The AWS access key
+** *AWS Secret Key* - The AWS secret key
+** *Region Name* - AWS region name for the service (e.g. us-east-1)
+** *Service Name* - Name of the AWS service (e.g. lambda)
+** *Host Name* - Host name of the AWS service being called
+** *Canonical URI* - The absolute path component of the URI, which is everything in the URI from the HTTP host to the question mark character ("?") that begins the query string parameters (if any) (e.g. /2015-03-31/functions/helloAWS/invocations)
+
+image::awsv4auth_fd_getauthsig.png[X-Amz-Date Variable,500]
+
+* In the *Advanced* tab, be sure to set a target variable where you will store the authorization signature. The authorization signature will be passed to in the header of the HTTP Request.
+
+image::awsv4auth_fd_getauthsig_advanced.png[Connector Advanced Tab,500]
+
+* Drop in the *HTTP Request* after the connector.
+** Configure the HTTP Request configuration
+*** Make sure the *Host* matches the host name you used in the connector
+*** Set the *Protocol* to HTTPS and the *Port* to 443
+** Set the *Method* to *POST*
+** Set the *URI Path* to the *Canonical URI* that you used in the connector
+** Added the following *Headers*
+*** *Authorization* - The variable that contains the authorization string (e.g. vars.authString)
+*** *Content-Type* - "application/json"
+*** *X-Amz-Date* - The variable that contains the *X-Amz-Date* (e.g. vars.xAmzDate)
+*** *Host* - The same host name that was passed into the connector.
+
+image::awsv4auth_fd_http_headers.png[HTTP Request Headers,500]
 
 === Test the Connector
-[List how to test that the connector works via Design Center]
+If you have an *HTTP Listener* in the beginning of the flow, you can test this flow through an HTTP Request passing in the necessary payload that you would be passing to the AWS service.
 
 == To Install this Connector in Anypoint Studio 7
 . In Anypoint Studio 7, click Add Module and specify the name of the connector.
@@ -22,16 +57,49 @@ This is the first release of the connector.
 . When Studio has an update, a message displays in the lower right corner, which you can click to install the update.
 
 == To Create a Mule Project in Anypoint Studio 7
-[screenshot of flow, screenshot of configuration screen(s), table of field descriptions]
+* Before setting up the connector, you need to pass in the *X-Amz-Date* as a variable in a specific format (e.g. 20190521T160341Z). The following DataWeave script will generate this for you.
+
+[source,xml,linenums]
+#[output application/json --- (now() >> "UTC") as DateTime  {format:"yyyyMMdd'T'HHmmss'Z'"}]
+
+image::awsv4auth_as_vars_xamzdate.png[X-Amz-Date Variable,500]
+
+* Next you can add in the AWS Signature Version 4 Connector.
+** *Body* - Keep the default value of the payload you expect to pass to the AWS service.
+** *Time Stamp* - Pass the *X-Amz-Date* variable that you created beforehand. (e.g. vars.xAmzDate)
+** *AWS Access Key* - The AWS access key
+** *AWS Secret Key* - The AWS secret key
+** *Region Name* - AWS region name for the service (e.g. us-east-1)
+** *Service Name* - Name of the AWS service (e.g. lambda)
+** *Host Name* - Host name of the AWS service being called
+** *Canonical URI* - The absolute path component of the URI, which is everything in the URI from the HTTP host to the question mark character ("?") that begins the query string parameters (if any) (e.g. /2015-03-31/functions/helloAWS/invocations)
+
+image::awsv4auth_as_getauthsig.png[X-Amz-Date Variable,500]
+
+* In the *Advanced* tab, be sure to set a target variable where you will store the authorization signature. The authorization signature will be passed to in the header of the HTTP Request.
+
+image::awsv4auth_as_getauthsig_advanced.png[Connector Advanced Tab,500]
+
+* Drop in the *HTTP Request* after the connector.
+** Configure the HTTP Request configuration
+*** Make sure the *Host* matches the host name you used in the connector
+*** Set the *Protocol* to HTTPS and the *Port* to 443
+** Set the *Method* to *POST*
+** Set the *URI Path* to the *Canonical URI* that you used in the connector
+** Added the following *Headers*
+*** *Authorization* - The variable that contains the authorization string (e.g. vars.authString)
+*** *Content-Type* - "application/json"
+*** *X-Amz-Date* - The variable that contains the *X-Amz-Date* (e.g. vars.xAmzDate)
+*** *Host* - The same host name that was passed into the connector.
+
+image::awsv4auth_as_http_headers.png[HTTP Request Headers,500]
 
 === To Create a Mule Project Using XML
 [source,xml,linenums]
 <awsv4auth:get-authorization-string doc:name="Get Authorization String" accessKey="${aws.accesskey}" secretKey="${aws.secretkey}" regionName="${aws.region}" serviceName="${aws.service}" canonicalURL="/2015-03-31/functions/helloAWS/invocations" timeStamp="#[vars.xAmzDate]" body="#[payload.^raw]" hostName="${aws.hostname}"/>
 
-image::properties.png[Properties,500]
-
 === To Run and Test a Mule Flow
-Explain how to run the application and test the connector.
+If you have an *HTTP Listener* in the beginning of the flow, you can test this flow through an HTTP Request passing in the necessary payload that you would be passing to the AWS service.
 
 == Example: AWS Signature Version 4
 This example demonstrates the use of AWS Signature Version 4 connector.
@@ -39,19 +107,12 @@ To build and run this demo project you need:
 
 * Anypoint Studio with at least Mule 4.1.4 Runtime.
 
-=== To Configure this Example
-[Explain how to configure this example. Don't repeat screenshots from the configuration section above.]
-
-=== To Test the Example
-[Explain how to test that the example works]
-
-=== About the XML Flow
 [source,xml,linenums]
-<flow name="aws-sig-v4-example-mule4Flow" doc:id="1dd79553-1a8d-4586-b9ff-ab183adf848a" >
-  <http:listener doc:name="/hello" doc:id="1c98da1c-1da8-4b4f-8394-1f061d01da24" config-ref="HTTP_Listener_config" path="/hello"/>
-  <set-variable value="#[output application/json --- (now() &gt;&gt; &quot;UTC&quot;) as DateTime  {format:&quot;yyyyMMdd'T'HHmmss'Z'&quot;}]" doc:name="xAmzDate" doc:id="097fcc10-3934-49c3-bc5f-5263e27a9b6b" variableName="xAmzDate"/>
-  <awsv4auth:get-authorization-string doc:name="Get authorization string" doc:id="d0d15939-057f-4e61-9058-ec4d185f3224" accessKey="${aws.accesskey}" secretKey="${aws.secretkey}" regionName="${aws.region}" serviceName="${aws.service}" canonicalURL="/2015-03-31/functions/helloAWS/invocations" timeStamp="#[vars.xAmzDate]" target="authString" body="#[payload]" hostName="${aws.hostname}"/>
-  <http:request method="POST" doc:name="Call AWS Lambda" doc:id="b2a2bee1-dfbb-4246-85e7-8907b432e15a" path="/2015-03-31/functions/helloAWS/invocations" config-ref="HTTP_Request_configuration" sendCorrelationId="NEVER">
+<flow name="aws-sig-v4-example-mule4Flow" >
+  <http:listener doc:name="/hello" config-ref="HTTP_Listener_config" path="/hello"/>
+  <set-variable value="#[output application/json --- (now() &gt;&gt; &quot;UTC&quot;) as DateTime  {format:&quot;yyyyMMdd'T'HHmmss'Z'&quot;}]" doc:name="xAmzDate" variableName="xAmzDate"/>
+  <awsv4auth:get-authorization-string doc:name="Get authorization string" accessKey="${aws.accesskey}" secretKey="${aws.secretkey}" regionName="${aws.region}" serviceName="${aws.service}" canonicalURI="/2015-03-31/functions/helloAWS/invocations" timeStamp="#[vars.xAmzDate]" target="authString" body="#[payload]" hostName="${aws.hostname}"/>
+  <http:request method="POST" doc:name="Call AWS Lambda" path="/2015-03-31/functions/helloAWS/invocations" config-ref="HTTP_Request_configuration" sendCorrelationId="NEVER">
     <http:headers ><![CDATA[#[output application/java
     ---
     {

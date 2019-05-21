@@ -31,7 +31,7 @@ public class AWSV4AuthOperations {
   String strSignedHeader;
 
   @MediaType(value = ANY, strict = false)
-  public String getAuthorizationString(@Optional(defaultValue = PAYLOAD) InputStream body, String timeStamp, String accessKey, String secretKey, String regionName, String serviceName, String hostName, String canonicalURL, @Optional String queryString) {
+  public String getAuthorizationString(@Optional(defaultValue = PAYLOAD) InputStream body, String timeStamp, String accessKey, String secretKey, String regionName, String serviceName, String hostName, String canonicalURI, @Optional String queryString) {
 
     String xAmzDate = timeStamp;
 
@@ -40,7 +40,7 @@ public class AWSV4AuthOperations {
     /* Task 1 - Create a Canonical Request */
     String canonicalRequest = null;
     try {
-      canonicalRequest = prepareCanonicalRequest(IOUtils.toString(body), xAmzDate, regionName, serviceName, hostName, canonicalURL, queryString);
+      canonicalRequest = prepareCanonicalRequest(IOUtils.toString(body), xAmzDate, regionName, serviceName, hostName, canonicalURI, queryString);
     } catch (IOException e) {
       e.printStackTrace();
     }

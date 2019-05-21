@@ -7,7 +7,7 @@
     <!--<groupId>com.dejim</groupId>-->
     <groupId>b85b361d-0842-4b70-af37-2723c2c3ae7e</groupId>
     <artifactId>awsv4auth-extension</artifactId>
-    <version>1.0.4</version>
+    <version>1.0.6</version>
     <packaging>mule-extension</packaging>
     <name>AWSV4Auth Extension</name>
 
