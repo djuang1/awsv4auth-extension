@@ -30,8 +30,16 @@ public class AWSV4AuthOperations {
 
   String strSignedHeader;
 
+  public enum HTTPRequestType {
+    GET,
+    POST,
+    PUT,
+    PATCH,
+    DELETE
+  }
+
   @MediaType(value = ANY, strict = false)
-  public String getAuthorizationString(@Optional(defaultValue = PAYLOAD) InputStream body, String timeStamp, String accessKey, String secretKey, String regionName, String serviceName, String hostName, String canonicalURI, @Optional String queryString) {
+  public String getAuthorizationString(@Optional(defaultValue = PAYLOAD) InputStream body, String timeStamp, String accessKey, String secretKey, String regionName, String serviceName, HTTPRequestType requestType, String hostName, String canonicalURI, @Optional String queryString) {
 
     String xAmzDate = timeStamp;
 
@@ -40,7 +48,7 @@ public class AWSV4AuthOperations {
     /* Task 1 - Create a Canonical Request */
     String canonicalRequest = null;
     try {
-      canonicalRequest = prepareCanonicalRequest(IOUtils.toString(body), xAmzDate, regionName, serviceName, hostName, canonicalURI, queryString);
+      canonicalRequest = prepareCanonicalRequest(IOUtils.toString(body), xAmzDate, regionName, serviceName, requestType, hostName, canonicalURI, queryString);
     } catch (IOException e) {
       e.printStackTrace();
     }
@@ -150,12 +158,12 @@ public class AWSV4AuthOperations {
     return "AWS4-HMAC-SHA256" + " " + "Credential=" + accessKey + "/" + getDate() + "/" + regionName + "/" + serviceName + "/" + "aws4_request" + ", " + "SignedHeaders=" + strSignedHeader + ", " + "Signature=" + strSignature;
   }
 
-  private String prepareCanonicalRequest(String payload, String timeStamp, String regionName, String serviceName, String hostName, String canonicalURI, String queryString) {
+  private String prepareCanonicalRequest(String payload, String timeStamp, String regionName, String serviceName, HTTPRequestType requestType, String hostName, String canonicalURI, String queryString) {
 
     TreeMap<String, String> queryParameters = new TreeMap<>();
     StringBuilder canonicalURL = new StringBuilder("");
 
-    canonicalURL.append("POST").append("\n");
+    canonicalURL.append(requestType.toString()).append("\n");
     canonicalURI = canonicalURI == null || canonicalURI.trim().isEmpty() ? "/" : canonicalURI;
     canonicalURL.append(canonicalURI).append("\n");
 

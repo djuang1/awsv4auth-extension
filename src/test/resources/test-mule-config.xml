@@ -6,7 +6,7 @@
 
     <flow name="getAuthorizationStringFlow">
         <set-payload value='#[output application/json --- {"first_name":"Bill"}]'/>
-        <awsv4auth:get-authorization-string accessKey="ABC" secretKey="123" regionName="us-east-1" serviceName="lambda" canonicalURI="/2015-03-31/functions/helloAWS/invocations" timeStamp="20190425T123154Z" body="#[payload]" hostName="lambda.us-east-1.amazonaws.com"/>
+        <awsv4auth:get-authorization-string accessKey="ABC" secretKey="123" regionName="us-east-1" serviceName="lambda" requestType="POST" canonicalURI="/2015-03-31/functions/helloAWS/invocations" timeStamp="20190425T123154Z" body="#[payload]" hostName="lambda.us-east-1.amazonaws.com"/>
     </flow>
 
 </mule>

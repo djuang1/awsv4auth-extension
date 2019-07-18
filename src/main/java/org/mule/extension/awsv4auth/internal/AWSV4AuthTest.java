@@ -15,7 +15,7 @@ public class AWSV4AuthTest {
 
         InputStream is = new ByteArrayInputStream(obj.toString().getBytes());
 
-        System.out.println(testOperation.getAuthorizationString(is,"20190425T123154Z","ABC","123","us-east-1","lambda", "lambda.us-east-1.amazonaws.com" ,"/2015-03-31/functions/helloAWS/invocations",""));
+        System.out.println(testOperation.getAuthorizationString(is,"20190425T123154Z","ABC","123","us-east-1","lambda", AWSV4AuthOperations.HTTPRequestType.POST, "lambda.us-east-1.amazonaws.com" ,"/2015-03-31/functions/helloAWS/invocations",""));
 
     }
 }

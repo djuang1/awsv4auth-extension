@@ -21,7 +21,7 @@ public class AWSV4AuthOperationsTestCase extends MuleArtifactFunctionalTestCase 
                                       .getMessage()
                                       .getPayload()
                                       .getValue());
-    assertThat(payloadValue, is("AWS4-HMAC-SHA256 Credential=ABC/20190521/us-east-1/lambda/aws4_request, SignedHeaders=content-type;host;x-amz-date, Signature=b59075ac4e5e70e0c36e1dd33bc64f470fcca672d650908db1c96898a9ce21e7"));
+    assertThat(payloadValue, is("AWS4-HMAC-SHA256 Credential=ABC/20190718/us-east-1/lambda/aws4_request, SignedHeaders=content-type;host;x-amz-date, Signature=a6bb0a4473f4993603b361ea7301f16b20d7d71b90002cf0d90d5c4b5391941b"));
   }
 
 }
