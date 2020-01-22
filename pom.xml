@@ -7,14 +7,14 @@
     <!--<groupId>com.dejim</groupId>-->
     <groupId>b85b361d-0842-4b70-af37-2723c2c3ae7e</groupId>
     <artifactId>awsv4auth-extension</artifactId>
-    <version>1.0.7</version>
+    <version>1.0.8</version>
     <packaging>mule-extension</packaging>
     <name>AWSV4Auth Extension</name>
 
     <parent>
-        <groupId>org.mule.connectors</groupId>
-        <artifactId>mule-certified-parent</artifactId>
-        <version>1.2.5-SNAPSHOT</version>
+        <groupId>org.mule.extensions</groupId>
+        <artifactId>mule-modules-parent</artifactId>
+        <version>1.1.6</version>
     </parent>
 
     <distributionManagement>
