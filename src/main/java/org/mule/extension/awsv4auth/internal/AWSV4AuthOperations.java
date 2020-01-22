@@ -17,11 +17,9 @@ import java.security.MessageDigest;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
-import java.util.Date;
-import java.util.Locale;
-import java.util.Map;
-import java.util.TimeZone;
-import java.util.TreeMap;
+import java.util.*;
+
+import org.mule.runtime.extension.api.annotation.values.OfValues;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
@@ -30,16 +28,8 @@ public class AWSV4AuthOperations {
 
   String strSignedHeader;
 
-  public enum HTTPRequestType {
-    GET,
-    POST,
-    PUT,
-    PATCH,
-    DELETE
-  }
-
   @MediaType(value = ANY, strict = false)
-  public String getAuthorizationString(@Optional(defaultValue = PAYLOAD) InputStream body, String timeStamp, String accessKey, String secretKey, String regionName, String serviceName, HTTPRequestType requestType, String hostName, String canonicalURI, @Optional String queryString) {
+  public String getAuthorizationString(@Optional(defaultValue = PAYLOAD) InputStream body, String timeStamp, String accessKey, String secretKey, String regionName, String serviceName, @OfValues(StaticHTTPRequestTypeValueProvider.class) String requestType, String hostName, String canonicalURI, @Optional String queryString) {
 
     String xAmzDate = timeStamp;
 
@@ -158,7 +148,7 @@ public class AWSV4AuthOperations {
     return "AWS4-HMAC-SHA256" + " " + "Credential=" + accessKey + "/" + getDate() + "/" + regionName + "/" + serviceName + "/" + "aws4_request" + ", " + "SignedHeaders=" + strSignedHeader + ", " + "Signature=" + strSignature;
   }
 
-  private String prepareCanonicalRequest(String payload, String timeStamp, String regionName, String serviceName, HTTPRequestType requestType, String hostName, String canonicalURI, String queryString) {
+  private String prepareCanonicalRequest(String payload, String timeStamp, String regionName, String serviceName, String requestType, String hostName, String canonicalURI, String queryString) {
 
     TreeMap<String, String> queryParameters = new TreeMap<>();
     StringBuilder canonicalURL = new StringBuilder("");
