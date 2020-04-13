@@ -5,9 +5,10 @@
 
     <modelVersion>4.0.0</modelVersion>
     <!--<groupId>com.dejim</groupId>-->
+    <!--  You should replace the group id below with your organization id in anypoint -->
     <groupId>b85b361d-0842-4b70-af37-2723c2c3ae7e</groupId>
     <artifactId>awsv4auth-extension</artifactId>
-    <version>1.0.8</version>
+    <version>1.0.9</version>
     <packaging>mule-extension</packaging>
     <name>AWSV4Auth Extension</name>
 
