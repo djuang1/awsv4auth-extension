@@ -4,6 +4,8 @@ AWS Signature Version 4 is the process to add authentication information to AWS 
 
 An example project can be found [here](https://github.com/djuang1/aws-sig-v4-example-mule4)
 
+> :exclamation: **This connector has been created and provided free of charge to the MuleSoft developer community. While issues can be reported, there is no guarantee for support.**
+
 ### Date Format
 ```
 #[output application/json --- (now() >> "UTC") as DateTime  {format:"yyyyMMdd'T'HHmmss'Z'"}]
@@ -27,3 +29,7 @@ An example project can be found [here](https://github.com/djuang1/aws-sig-v4-exa
 2.  Change the pom.xml groupId to match your organization id in your Anypoint Platform organization
 3.  Deploy the connector to your [Exchange using Maven](https://docs.mulesoft.com/exchange/to-publish-assets-maven):  mvn clean -DskipTests deploy
 4.  Consume connector in Anypoint Studio by downloading from Exchange.
+
+## Reporting Issues
+
+You can report new issues at this link https://github.com/djuang1/awsv4auth-extension/issues.
