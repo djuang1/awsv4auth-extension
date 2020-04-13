@@ -43,7 +43,7 @@ public class AWSV4AuthOperations {
       e.printStackTrace();
     }
 
-    System.out.println(canonicalRequest);
+    //System.out.println(canonicalRequest);
 
     /* Task 2 - Create a String to Sign */
     String stringToSign = prepareStringToSign(canonicalRequest, xAmzDate, regionName, serviceName);
