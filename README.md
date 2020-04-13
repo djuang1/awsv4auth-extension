@@ -20,3 +20,10 @@ An example project can be found [here](https://github.com/djuang1/aws-sig-v4-exa
     "Host" : "lambda.us-east-1.amazonaws.com"
 }]
 ```
+
+### Instructions
+
+1.  Clone the Repo
+2.  Change the pom.xml groupId to match your organization id in your Anypoint Platform organization
+3.  Deploy the connector to your [Exchange using Maven](https://docs.mulesoft.com/exchange/to-publish-assets-maven):  mvn clean -DskipTests deploy
+4.  Consume connector in Anypoint Studio by downloading from Exchange.
