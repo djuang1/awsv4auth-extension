@@ -2,6 +2,8 @@
 
 AWS Signature Version 4 is the process to add authentication information to AWS requests sent over HTTP. This connector allows you to build the signature to allow you to call an AWS service over HTTP. 
 
+<img src="https://github.com/djuang1/djuang1.github.io/blob/master/img/aws-sig-v4/aws-sig-v4-config.png?raw=true" width="500px">
+
 An example project can be found [here](https://github.com/djuang1/aws-sig-v4-example-mule4)
 
 > :exclamation: **This connector has been created and provided free of charge to the MuleSoft developer community. While issues can be reported, there is no guarantee for support.**
