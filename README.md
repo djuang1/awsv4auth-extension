@@ -1,8 +1,15 @@
 # AWS Signature Version 4 Connector - Mule 4.x
 
-AWS Signature Version 4 is the process to add authentication information to AWS requests sent over HTTP. This connector allows you to build the signature to allow you to call an AWS service over HTTP. 
+[AWS Signature Version 4](https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html) is the process to add authentication information to AWS requests sent over HTTP. This connector allows you to build the signature to allow you to call an AWS service over HTTP. 
 
-<img src="https://github.com/djuang1/djuang1.github.io/blob/master/img/aws-sig-v4/aws-sig-v4-config.png?raw=true" width="500px">
+<img src="https://github.com/djuang1/djuang1.github.io/blob/master/img/aws-sig-v4/aws-sig-v4-config.png?raw=true" width="600px">
+
+The diagram below shows the process to create the signature.
+
+<img src="https://docs.aws.amazon.com/AmazonS3/latest/API/images/sigV4-using-auth-header.png">
+
+
+### Exmple Project
 
 An example project can be found [here](https://github.com/djuang1/aws-sig-v4-example-mule4)
 
